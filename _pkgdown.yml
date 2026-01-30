@@ -1,0 +1,68 @@
+url: https://username.github.io/egfiles/
+destination: docs
+
+template:
+  bootstrap: 5
+  bslib:
+    bg: "#FFFFFF"
+    fg: "#1D252D"
+    primary: "#1D252D"
+
+repo:
+  url:
+    home: https://github.com/username/egfiles/
+    source: https://github.com/username/egfiles/blob/main/
+    issue: https://github.com/username/egfiles/issues/
+    user: https://github.com/username
+
+reference:
+- title: Authentication
+  desc: Functions for configuring API access and authentication
+- contents:
+  - eg_auth
+  - eg_oauth_app
+  - eg_oauth_authorize
+  - eg_oauth_password
+  - eg_oauth_refresh
+
+- title: File Transfer
+  desc: Core functions for uploading and downloading files
+- contents:
+  - eg_read
+  - eg_write
+
+- title: Reading Files
+  desc: Functions for reading specific file formats from Egnyte
+- contents:
+  - eg_read_csv
+  - eg_read_delim
+  - eg_read_excel
+  - eg_read_sas
+  - eg_read_xpt
+  - eg_read_stata
+  - eg_read_spss
+  - eg_read_rds
+
+- title: Writing Files
+  desc: Functions for writing specific file formats to Egnyte
+- contents:
+  - eg_write_csv
+  - eg_write_delim
+  - eg_write_excel
+  - eg_write_xpt
+  - eg_write_stata
+  - eg_write_spss
+  - eg_write_rds
+
+articles:
+- title: Getting Started
+  navbar: Getting Started
+  contents:
+  - configuration
+  - authorization
+
+- title: Working with Files
+  navbar: Working with Files
+  contents:
+  - file-transfer
+  - reading-writing

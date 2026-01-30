@@ -1,0 +1,29 @@
+Package: egfiles
+Title: Read and Write Files from Egnyte
+Version: 0.1.0
+Authors@R:
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+Description: Provides functions to read and write files from Egnyte cloud
+    storage using the Egnyte API. Supports both API key and OAuth 2.0
+    authentication for file transfer operations.
+License: Apache License 2.0 | file LICENSE
+URL: https://github.com/username/egfiles
+BugReports: https://github.com/username/egfiles/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    cli,
+    httr2
+Suggests:
+    haven,
+    jsonlite,
+    knitr,
+    readr,
+    readxl,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    withr,
+    writexl
+VignetteBuilder: knitr
+Config/testthat/edition: 3

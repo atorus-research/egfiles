@@ -1,0 +1,248 @@
+---
+title: "Authorization"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Authorization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+egfiles supports multiple methods for authenticating with the Egnyte API. Which one you should use depends on your situation - whether you have admin access, whether you're running scripts interactively or in automation, and what level of security you need.
+
+This vignette walks through each authentication method, explains when to use it, and shows you how to set it up.
+
+## Overview of Authentication Methods
+
+egfiles supports three authentication approaches:
+
+| Method | Best For | Admin Required | Refresh Tokens |
+|--------|----------|----------------|----------------|
+| API Key | Personal use, simple scripts | Yes (to create key) | N/A |
+| OAuth Authorization Code | Interactive use, team environments | No | Yes |
+| OAuth Password | Automation, service accounts | No | No |
+
+Let's look at each one in detail.
+
+## API Key Authentication
+
+This is the simplest approach. You get an API key from your Egnyte admin (or create one yourself if you are the admin), and use it directly.
+
+```{r}
+library(egfiles)
+
+eg_auth(
+  domain = "your-company",
+  api_key = "your-api-key"
+)
+```
+
+### When to Use It
+
+- You have admin access to create API keys, or can easily get one from your admin
+- You're writing scripts for personal use
+- You want the simplest possible setup
+
+### When to Avoid It
+
+- You're building something that will be used by multiple people (each would need their own key)
+- You don't have admin access and can't easily get a key
+- You need more granular control over permissions
+
+For details on obtaining and configuring an API key, see `vignette("configuration")`.
+
+## OAuth 2.0 Authorization Code Flow
+
+This is the standard OAuth flow where users authenticate through their browser. It's more complex to set up initially, but provides a better experience for multi-user scenarios.
+
+### Initial Setup
+
+Before you can use OAuth, you need to register an application with Egnyte:
+
+1. Go to [https://developers.egnyte.com](https://developers.egnyte.com) and sign in
+2. Create a new application
+3. Note your **Client ID** and **Client Secret**
+4. Set your redirect URI (default: `https://localhost/callback`)
+
+Then configure egfiles with your application credentials:
+
+```{r}
+library(egfiles)
+
+eg_oauth_app(
+  domain = "your-company",
+  client_id = "your-client-id",
+  client_secret = "your-client-secret"
+)
+```
+
+### Authorizing
+
+Once your app is configured, initiate the authorization flow:
+
+```{r}
+eg_oauth_authorize()
+```
+
+This will:
+1. Open your default browser to the Egnyte login page
+2. Prompt you to log in and approve the application
+3. Redirect you to a page with an authorization code
+4. Ask you to paste that code back into R
+
+After you paste the code, egfiles exchanges it for access tokens and stores them for future use.
+
+### Token Refresh
+
+Access tokens expire after 30 days. When they do, egfiles will automatically refresh them using the stored refresh token - no user interaction required.
+
+If you need to manually refresh:
+
+```{r}
+eg_oauth_refresh()
+```
+
+### When to Use It
+
+- You're building something for a team where each person authenticates with their own account
+- You don't have access to API keys
+- You want automatic token refresh
+- You need the security benefits of OAuth (tokens can be revoked, scoped permissions, etc.)
+
+### When to Avoid It
+
+- You need fully automated scripts with no user interaction
+- You're doing something quick and simple where API keys would suffice
+
+## OAuth 2.0 Resource Owner Password Flow
+
+This flow lets you authenticate directly with a username and password, without browser interaction. It's useful for automation scenarios where you can't have a human in the loop.
+
+### Setup
+
+First, configure your OAuth application (same as above):
+
+```{r}
+library(egfiles)
+
+eg_oauth_app(
+  domain = "your-company",
+  client_id = "your-client-id",
+  client_secret = "your-client-secret"
+)
+```
+
+Then authenticate with username and password:
+
+```{r}
+eg_oauth_password(
+  username = "your-username",
+  password = "your-password"
+)
+```
+
+### Using Environment Variables
+
+You probably don't want passwords in your scripts. egfiles can read credentials from environment variables:
+
+- `EGNYTE_USERNAME`: Your Egnyte username
+- `EGNYTE_PASSWORD`: Your Egnyte password
+
+```{r}
+# With environment variables set, just call:
+eg_oauth_password()
+```
+
+If you're running interactively and the environment variables aren't set, egfiles will prompt you to enter your credentials.
+
+### Important Limitations
+
+The password flow has some limitations compared to the authorization code flow:
+
+1. **No refresh tokens**: When the access token expires, you need to re-authenticate with username and password
+2. **Password exposure risk**: Your password is sent to the server (over HTTPS, but still)
+3. **May not work with SSO**: If your organization uses single sign-on, this flow might not be available
+
+### When to Use It
+
+- You need automated scripts that run without user interaction
+- You're using a service account specifically for API access
+- The authorization code flow isn't practical for your use case
+
+### When to Avoid It
+
+- You're running interactive sessions where browser auth is fine
+- Your organization uses SSO
+- You're uncomfortable with password-based authentication
+
+## Choosing the Right Method
+
+Here's a decision tree:
+
+**Do you have an API key or can easily get one?**
+- Yes → Use `eg_auth()` with your API key. Simple and effective.
+
+**Do you need automated, unattended execution?**
+- Yes → Use `eg_oauth_password()`. Set credentials in environment variables.
+
+**Are you building for multiple users or want OAuth benefits?**
+- Yes → Use `eg_oauth_authorize()`. More setup, but better for teams.
+
+## How Authentication State is Stored
+
+Regardless of which method you use, egfiles stores your authentication state in R options for the duration of your session:
+
+- `egfiles.domain`: Your Egnyte domain
+- `egfiles.api_key`: Your API key (if using API key auth)
+- `egfiles.access_token`: Your OAuth access token (if using OAuth)
+- `egfiles.refresh_token`: Your OAuth refresh token (if available)
+- `egfiles.token_expiry`: When your OAuth token expires
+
+These are cleared when your R session ends. If you want persistent authentication across sessions, use environment variables for your credentials.
+
+## Token Expiration
+
+A quick note on token lifetimes:
+
+- **API Keys**: Don't expire unless revoked by an admin
+- **OAuth Access Tokens**: Expire after 30 days
+- **OAuth Refresh Tokens**: Long-lived, used to get new access tokens
+
+egfiles handles token refresh automatically when using the authorization code flow. If you're using the password flow and your token expires, you'll need to call `eg_oauth_password()` again.
+
+## Troubleshooting
+
+**"Invalid API key" error**
+
+- Double-check your API key for typos or extra whitespace
+- Verify the key hasn't been revoked
+- Make sure you're using the correct domain
+
+**"Access denied" error**
+
+- Your API key or token might not have permissions for the folder you're accessing
+- Check with your Egnyte admin about permissions
+
+**Browser doesn't open during OAuth**
+
+- Make sure you're running R interactively
+- Try copying the URL from the console and opening it manually
+
+**"Token expired" and refresh fails**
+
+- Your refresh token might have been revoked
+- Run `eg_oauth_authorize()` again to get new tokens
+
+## Next Steps
+
+Now that you understand the authentication options:
+
+- Start transferring files with `vignette("file-transfer")`
+- Read and write data files with `vignette("reading-writing")`
