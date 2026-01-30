@@ -1,0 +1,150 @@
+# Configuration
+
+Before you can use egfiles to interact with Egnyte, you need to set up
+your credentials. This vignette walks through how to get an API key and
+configure it for use with egfiles. If you’re looking to understand the
+different authentication methods available, check out
+[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+after you’ve finished here.
+
+## Getting an API Key
+
+First things first - you need an API key from Egnyte. The process for
+obtaining one depends on whether you’re an Egnyte administrator or a
+regular user.
+
+### If You’re an Admin
+
+If you have admin access to your Egnyte account, you can generate an API
+key directly: 1. Log in to your Egnyte account 2. Navigate to
+**Settings** \> **Security & Authentication** \> **API Keys** 3. Click
+**Create New Key** 4. Give the key a descriptive name (e.g., “R egfiles
+access”) 5. Copy the generated key - you won’t be able to see it again
+
+### If You’re Not an Admin
+
+If you don’t have admin access, you’ll need to request an API key from
+your Egnyte administrator. Send them a request explaining: - What you
+need the API key for (R-based file access) - What permissions you need
+(typically read/write access to specific folders)
+
+Alternatively, you can use OAuth authentication, which doesn’t require
+admin involvement. See
+[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+for details on the OAuth options.
+
+## Setting Up Your Credentials
+
+Once you have your API key, you can configure egfiles using the
+[`eg_auth()`](https://username.github.io/egfiles/reference/eg_auth.md)
+function:
+
+``` r
+library(egfiles)
+
+eg_auth(
+  domain = "your-company",
+  api_key = "your-api-key-here"
+)
+```
+
+The `domain` parameter is your Egnyte subdomain - the part that comes
+before `.egnyte.com` in your Egnyte URL. So if you access Egnyte at
+`https://acme-corp.egnyte.com`, your domain is `"acme-corp"`.
+
+After calling
+[`eg_auth()`](https://username.github.io/egfiles/reference/eg_auth.md),
+you’re ready to use the file reading and writing functions.
+
+## Using Environment Variables
+
+Hardcoding credentials in your scripts is generally a bad idea. Anyone
+who sees your code also sees your API key. Instead, egfiles supports
+reading credentials from environment variables.
+
+Set these environment variables on your system: - `EGNYTE_DOMAIN`: Your
+Egnyte domain - `EGNYTE_API_KEY`: Your API key
+
+Then you can call
+[`eg_auth()`](https://username.github.io/egfiles/reference/eg_auth.md)
+without any arguments:
+
+``` r
+eg_auth()
+```
+
+egfiles will automatically pick up the values from your environment.
+
+### Setting Environment Variables
+
+How you set environment variables depends on your operating system and
+workflow.
+
+**In an .Renviron file (recommended for R users):**
+
+Create or edit a file called `.Renviron` in your home directory:
+
+    EGNYTE_DOMAIN=your-company
+    EGNYTE_API_KEY=your-api-key-here
+
+Restart R, and these variables will be available in every session.
+
+**On macOS/Linux (terminal):**
+
+Add to your `~/.bashrc`, `~/.zshrc`, or equivalent:
+
+``` bash
+export EGNYTE_DOMAIN="your-company"
+export EGNYTE_API_KEY="your-api-key-here"
+```
+
+**On Windows (Command Prompt):**
+
+``` cmd
+setx EGNYTE_DOMAIN "your-company"
+setx EGNYTE_API_KEY "your-api-key-here"
+```
+
+## Verifying Your Setup
+
+After configuring your credentials, you can verify everything is working
+by trying to read a file you know exists:
+
+``` r
+# Try reading a file from a known path
+eg_read("/Shared/some-folder/test-file.txt", destfile = "test.txt")
+```
+
+If you get an error about authentication, double-check that:
+
+1.  Your API key is correct (no extra spaces or characters)
+2.  Your domain is correct (just the subdomain, not the full URL)
+3.  Your API key has the necessary permissions for the folder you’re
+    accessing
+
+## A Note on Security
+
+Your API key provides access to your Egnyte files. Treat it like a
+password:
+
+- Never commit it to version control
+- Don’t share it in Slack, email, or other communication channels
+- Use environment variables or a secrets manager rather than hardcoding
+- If you suspect your key has been compromised, revoke it immediately
+  and generate a new one
+
+For team environments where you need more control over authentication
+and token management, consider using OAuth instead. See
+[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+for details.
+
+## Next Steps
+
+Now that you have your credentials configured, you can:
+
+- Learn about the different authentication methods in
+  [`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+- Start transferring files with
+  [`vignette("file-transfer")`](https://username.github.io/egfiles/articles/file-transfer.md)
+- Read and write data files with
+  [`vignette("reading-writing")`](https://username.github.io/egfiles/articles/reading-writing.md)

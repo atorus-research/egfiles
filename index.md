@@ -1,0 +1,114 @@
+# egfiles
+
+## Overview
+
+**egfiles** provides an interface for reading and writing files directly
+to and from [Egnyte](https://www.egnyte.com/) cloud storage. If you work
+in an environment where Egnyte is your file storage solution, this
+package lets you interact with those files programmatically from R
+without manually downloading and uploading through the web interface.
+
+The package supports multiple authentication methods (API keys and OAuth
+2.0) and handles a variety of file formats commonly used in data
+analysis. Under the hood, egfiles leverages the excellent
+[readr](https://readr.tidyverse.org/),
+[readxl](https://readxl.tidyverse.org/), and
+[haven](https://haven.tidyverse.org/) packages for file parsing, so if
+you’re familiar with those packages, the interfaces here should feel
+natural.
+
+## Installation
+
+You can install egfiles from GitHub:
+
+``` r
+# install.packages("pak")
+pak::pak("username/egfiles")
+```
+
+## Getting Started
+
+Before you can interact with Egnyte, you need to authenticate. The
+simplest approach is using an API key:
+
+``` r
+library(egfiles)
+
+eg_auth(
+  domain = "your-company",
+  api_key = "your-api-key"
+)
+```
+
+Once authenticated, reading and writing files is straightforward:
+
+``` r
+# Read a CSV file from Egnyte
+dat <- eg_read_csv("/Shared/Data/analysis.csv")
+
+# Write results back to Egnyte
+eg_write_csv(results, "/Shared/Data/results.csv")
+```
+
+For a more complete walkthrough, see
+[`vignette("configuration")`](https://username.github.io/egfiles/articles/configuration.md)
+to set up your credentials and
+[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+to understand the different authentication options.
+
+## Supported File Formats
+
+egfiles provides format-specific functions for common data file types.
+These functions use [readr](https://readr.tidyverse.org/),
+[readxl](https://readxl.tidyverse.org/),
+[writexl](https://docs.ropensci.org/writexl/), and
+[haven](https://haven.tidyverse.org/) under the hood, so all arguments
+you’re familiar with from those packages are available here.
+
+| Format               | Read                                                                              | Write                                                                               | Underlying Package |
+|----------------------|-----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|--------------------|
+| CSV                  | [`eg_read_csv()`](https://username.github.io/egfiles/reference/eg_read_file.md)   | [`eg_write_csv()`](https://username.github.io/egfiles/reference/eg_write_file.md)   | readr              |
+| Delimited            | [`eg_read_delim()`](https://username.github.io/egfiles/reference/eg_read_file.md) | [`eg_write_delim()`](https://username.github.io/egfiles/reference/eg_write_file.md) | readr              |
+| Excel                | [`eg_read_excel()`](https://username.github.io/egfiles/reference/eg_read_file.md) | [`eg_write_excel()`](https://username.github.io/egfiles/reference/eg_write_file.md) | readxl / writexl   |
+| SAS (.sas7bdat)      | [`eg_read_sas()`](https://username.github.io/egfiles/reference/eg_read_file.md)   | —                                                                                   | haven              |
+| SAS Transport (.xpt) | [`eg_read_xpt()`](https://username.github.io/egfiles/reference/eg_read_file.md)   | [`eg_write_xpt()`](https://username.github.io/egfiles/reference/eg_write_file.md)   | haven              |
+| Stata (.dta)         | [`eg_read_stata()`](https://username.github.io/egfiles/reference/eg_read_file.md) | [`eg_write_stata()`](https://username.github.io/egfiles/reference/eg_write_file.md) | haven              |
+| SPSS (.sav)          | [`eg_read_spss()`](https://username.github.io/egfiles/reference/eg_read_file.md)  | [`eg_write_spss()`](https://username.github.io/egfiles/reference/eg_write_file.md)  | haven              |
+| RDS                  | [`eg_read_rds()`](https://username.github.io/egfiles/reference/eg_read_file.md)   | [`eg_write_rds()`](https://username.github.io/egfiles/reference/eg_write_file.md)   | base R             |
+
+For any file type not listed above, you can use
+[`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)
+and
+[`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md)
+to transfer raw files.
+
+## Authentication Methods
+
+egfiles supports three authentication approaches:
+
+- **API Key**: Simplest option, good for personal use and scripting
+- **OAuth Authorization Code**: Interactive browser-based login,
+  supports token refresh
+- **OAuth Password**: Direct username/password authentication
+
+See
+[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+for details on when to use each method.
+
+## Learn More
+
+- [`vignette("configuration")`](https://username.github.io/egfiles/articles/configuration.md) -
+  Setting up your API key and environment
+- [`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md) -
+  Understanding authentication methods
+- [`vignette("file-transfer")`](https://username.github.io/egfiles/articles/file-transfer.md) -
+  Uploading and downloading files
+- [`vignette("reading-writing")`](https://username.github.io/egfiles/articles/reading-writing.md) -
+  Working with data files
+
+## Code of Conduct
+
+Please note that the egfiles project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
