@@ -2,7 +2,11 @@ Package: egfiles
 Title: Read and Write Files from Egnyte
 Version: 0.1.0
 Authors@R:
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+    person(given = "Mike",
+           family = "Stackhouse",
+           role = c("aut", "cre"),
+           email = "mike.stackhouse@atorusresearch.com",
+           comment = c(ORCID = "0000-0001-6030-723X"))
 Description: Provides functions to read and write files from Egnyte cloud
     storage using the Egnyte API. Supports both API key and OAuth 2.0
     authentication for file transfer operations.
