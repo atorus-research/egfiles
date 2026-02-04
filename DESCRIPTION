@@ -10,6 +10,8 @@ Authors@R:
 Description: Provides functions to read and write files from Egnyte cloud
     storage using the Egnyte API. Supports both API key and OAuth 2.0
     authentication for file transfer operations.
+Depends:
+    R (>= 4.1.0)
 License: Apache License 2.0 | file LICENSE
 URL: https://github.com/atorus-research/egnyte
 BugReports: https://github.com/atorus-research/egnyte/issues
