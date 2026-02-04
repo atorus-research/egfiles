@@ -30,6 +30,7 @@ reference:
 - contents:
   - eg_read
   - eg_write
+  - eg_list
 
 - title: Reading Files
   desc: Functions for reading specific file formats from Egnyte
