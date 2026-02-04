@@ -1,4 +1,4 @@
-url: https://username.github.io/egfiles/
+url: https://atorus-research.github.io/egnyte/
 destination: docs
 
 template:
@@ -10,10 +10,10 @@ template:
 
 repo:
   url:
-    home: https://github.com/username/egfiles/
-    source: https://github.com/username/egfiles/blob/main/
-    issue: https://github.com/username/egfiles/issues/
-    user: https://github.com/username
+    home: https://github.com/atorus-research/egnyte/
+    source: https://github.com/atorus-research/egnyte/blob/main/
+    issue: https://github.com/atorus-research/egnyte/issues/
+    user: https://github.com/atorus-research
 
 reference:
 - title: Authentication

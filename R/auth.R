@@ -21,8 +21,8 @@ eg_auth <- function(domain, api_key) {
   }
 
   options(
-    egfiles.domain = domain,
-    egfiles.api_key = api_key
+    egnyte.domain = domain,
+    egnyte.api_key = api_key
   )
 
   cli::cli_alert_success("Egnyte credentials set for domain: {.val {domain}}")
@@ -48,9 +48,9 @@ eg_auth <- function(domain, api_key) {
 #' @noRd
 eg_get_auth <- function() {
  # Check if OAuth token needs refresh
-  token_expires <- getOption("egfiles.token_expires")
+  token_expires <- getOption("egnyte.token_expires")
   if (!is.null(token_expires) && Sys.time() > token_expires) {
-    refresh_token <- getOption("egfiles.refresh_token")
+    refresh_token <- getOption("egnyte.refresh_token")
     if (!is.null(refresh_token)) {
       cli::cli_alert_info("Access token expired, refreshing...")
       tryCatch(
@@ -62,8 +62,8 @@ eg_get_auth <- function() {
     }
   }
 
-  domain <- getOption("egfiles.domain", Sys.getenv("EGNYTE_DOMAIN", ""))
-  api_key <- getOption("egfiles.api_key", Sys.getenv("EGNYTE_API_KEY", ""))
+  domain <- getOption("egnyte.domain", Sys.getenv("EGNYTE_DOMAIN", ""))
+  api_key <- getOption("egnyte.api_key", Sys.getenv("EGNYTE_API_KEY", ""))
 
   if (domain == "" || api_key == "") {
     cli::cli_abort(c(

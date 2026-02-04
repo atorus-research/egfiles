@@ -1,4 +1,4 @@
-# egfiles
+# egnyte
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -6,17 +6,17 @@
 
 ## Overview
 
-**egfiles** provides an interface for reading and writing files directly to and from [Egnyte](https://www.egnyte.com/) cloud storage. If you work in an environment where Egnyte is your file storage solution, this package lets you interact with those files programmatically from R without manually downloading and uploading through the web interface.
+**egnyte** provides an interface for reading and writing files directly to and from [Egnyte](https://www.egnyte.com/) cloud storage. If you work in an environment where Egnyte is your file storage solution, this package lets you interact with those files programmatically from R without manually downloading and uploading through the web interface.
 
-The package supports multiple authentication methods (API keys and OAuth 2.0) and handles a variety of file formats commonly used in data analysis. Under the hood, egfiles leverages the excellent [readr](https://readr.tidyverse.org/), [readxl](https://readxl.tidyverse.org/), and [haven](https://haven.tidyverse.org/) packages for file parsing, so if you're familiar with those packages, the interfaces here should feel natural.
+The package supports multiple authentication methods (API keys and OAuth 2.0) and handles a variety of file formats commonly used in data analysis. Under the hood, egnyte leverages the excellent [readr](https://readr.tidyverse.org/), [readxl](https://readxl.tidyverse.org/), and [haven](https://haven.tidyverse.org/) packages for file parsing, so if you're familiar with those packages, the interfaces here should feel natural.
 
 ## Installation
 
-You can install egfiles from GitHub:
+You can install egnyte from GitHub:
 
 ```r
 # install.packages("pak")
-pak::pak("username/egfiles")
+pak::pak("atorus-research/egnyte")
 ```
 
 ## Getting Started
@@ -24,7 +24,7 @@ pak::pak("username/egfiles")
 Before you can interact with Egnyte, you need to authenticate. The simplest approach is using an API key:
 
 ```r
-library(egfiles)
+library(egnyte)
 
 eg_auth(
   domain = "your-company",
@@ -46,7 +46,7 @@ For a more complete walkthrough, see `vignette("configuration")` to set up your 
 
 ## Supported File Formats
 
-egfiles provides format-specific functions for common data file types. These functions use [readr](https://readr.tidyverse.org/), [readxl](https://readxl.tidyverse.org/), [writexl](https://docs.ropensci.org/writexl/), and [haven](https://haven.tidyverse.org/) under the hood, so all arguments you're familiar with from those packages are available here.
+egnyte provides format-specific functions for common data file types. These functions use [readr](https://readr.tidyverse.org/), [readxl](https://readxl.tidyverse.org/), [writexl](https://docs.ropensci.org/writexl/), and [haven](https://haven.tidyverse.org/) under the hood, so all arguments you're familiar with from those packages are available here.
 
 | Format | Read | Write | Underlying Package |
 |--------|------|-------|------------------|
@@ -63,7 +63,7 @@ For any file type not listed above, you can use `eg_read()` and `eg_write()` to 
 
 ## Authentication Methods
 
-egfiles supports three authentication approaches:
+egnyte supports three authentication approaches:
 
 - **API Key**: Simplest option, good for personal use and scripting
 - **OAuth Authorization Code**: Interactive browser-based login, supports token refresh
@@ -80,4 +80,4 @@ See `vignette("authorization")` for details on when to use each method.
 
 ## Code of Conduct
 
-Please note that the egfiles project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the egnyte project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

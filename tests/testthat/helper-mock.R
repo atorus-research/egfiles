@@ -98,11 +98,11 @@ mock_error_response <- function(status, error = "error", error_description = "An
 #' @param api_key Test API key
 setup_mock_auth <- function(domain = "testcompany", api_key = "test_api_key") {
   withr::local_options(list(
-    egfiles.domain = domain,
-    egfiles.api_key = api_key,
-    egfiles.oauth_app = NULL,
-    egfiles.refresh_token = NULL,
-    egfiles.token_expires = NULL
+    egnyte.domain = domain,
+    egnyte.api_key = api_key,
+    egnyte.oauth_app = NULL,
+    egnyte.refresh_token = NULL,
+    egnyte.token_expires = NULL
   ), .local_envir = parent.frame())
 
   withr::local_envvar(list(
@@ -124,16 +124,16 @@ setup_mock_oauth <- function(domain = "testcompany",
                               refresh_token = NULL,
                               token_expires = NULL) {
   withr::local_options(list(
-    egfiles.domain = domain,
-    egfiles.api_key = "test_access_token",
-    egfiles.oauth_app = list(
+    egnyte.domain = domain,
+    egnyte.api_key = "test_access_token",
+    egnyte.oauth_app = list(
       domain = domain,
       client_id = client_id,
       client_secret = client_secret,
       redirect_uri = "https://localhost/callback"
     ),
-    egfiles.refresh_token = refresh_token,
-    egfiles.token_expires = token_expires
+    egnyte.refresh_token = refresh_token,
+    egnyte.token_expires = token_expires
   ), .local_envir = parent.frame())
 
   withr::local_envvar(list(

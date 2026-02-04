@@ -1,11 +1,11 @@
 # Tests for eg_oauth_app
 
 test_that("eg_oauth_app stores configuration", {
-  withr::local_options(list(egfiles.oauth_app = NULL))
+  withr::local_options(list(egnyte.oauth_app = NULL))
 
   eg_oauth_app("testdomain", "test_client_id", "test_client_secret")
 
-  app <- getOption("egfiles.oauth_app")
+  app <- getOption("egnyte.oauth_app")
 
   expect_equal(app$domain, "testdomain")
   expect_equal(app$client_id, "test_client_id")
@@ -14,7 +14,7 @@ test_that("eg_oauth_app stores configuration", {
 })
 
 test_that("eg_oauth_app accepts custom redirect_uri", {
-  withr::local_options(list(egfiles.oauth_app = NULL))
+  withr::local_options(list(egnyte.oauth_app = NULL))
 
   eg_oauth_app(
     "testdomain",
@@ -23,7 +23,7 @@ test_that("eg_oauth_app accepts custom redirect_uri", {
     redirect_uri = "https://myapp.com/callback"
   )
 
-  app <- getOption("egfiles.oauth_app")
+  app <- getOption("egnyte.oauth_app")
   expect_equal(app$redirect_uri, "https://myapp.com/callback")
 })
 
@@ -34,7 +34,7 @@ test_that("eg_oauth_app requires all arguments", {
 })
 
 test_that("eg_oauth_app returns configuration invisibly", {
-  withr::local_options(list(egfiles.oauth_app = NULL))
+  withr::local_options(list(egnyte.oauth_app = NULL))
 
   result <- eg_oauth_app("testdomain", "test_client_id", "test_client_secret")
 
@@ -46,7 +46,7 @@ test_that("eg_oauth_app returns configuration invisibly", {
 # Tests for eg_oauth_authorize
 
 test_that("eg_oauth_authorize errors without app configuration", {
-  withr::local_options(list(egfiles.oauth_app = NULL))
+  withr::local_options(list(egnyte.oauth_app = NULL))
 
   expect_error(eg_oauth_authorize(), "OAuth app not configured")
 })
@@ -55,8 +55,8 @@ test_that("eg_oauth_authorize errors without app configuration", {
 
 test_that("eg_oauth_refresh errors without app configuration", {
   withr::local_options(list(
-    egfiles.oauth_app = NULL,
-    egfiles.refresh_token = NULL
+    egnyte.oauth_app = NULL,
+    egnyte.refresh_token = NULL
   ))
 
   expect_error(eg_oauth_refresh(), "OAuth app not configured")
@@ -64,12 +64,12 @@ test_that("eg_oauth_refresh errors without app configuration", {
 
 test_that("eg_oauth_refresh errors without refresh token", {
   withr::local_options(list(
-    egfiles.oauth_app = list(
+    egnyte.oauth_app = list(
       domain = "test",
       client_id = "id",
       client_secret = "secret"
     ),
-    egfiles.refresh_token = NULL
+    egnyte.refresh_token = NULL
   ))
 
   expect_error(eg_oauth_refresh(), "No refresh token available")
@@ -94,8 +94,8 @@ test_that("eg_oauth_refresh successfully refreshes token", {
   result <- eg_oauth_refresh()
 
   expect_equal(result$access_token, "new_access_token")
-  expect_equal(getOption("egfiles.api_key"), "new_access_token")
-  expect_equal(getOption("egfiles.refresh_token"), "new_refresh_token")
+  expect_equal(getOption("egnyte.api_key"), "new_access_token")
+  expect_equal(getOption("egnyte.refresh_token"), "new_refresh_token")
 })
 
 test_that("eg_oauth_refresh preserves old refresh token if new one not provided", {
@@ -117,7 +117,7 @@ test_that("eg_oauth_refresh preserves old refresh token if new one not provided"
 
   eg_oauth_refresh()
 
-  expect_equal(getOption("egfiles.refresh_token"), "preserved_refresh_token")
+  expect_equal(getOption("egnyte.refresh_token"), "preserved_refresh_token")
 })
 
 test_that("eg_oauth_refresh handles HTTP errors", {
@@ -152,7 +152,7 @@ test_that("eg_oauth_refresh updates token expiration time", {
   eg_oauth_refresh()
   after_time <- Sys.time()
 
-  token_expires <- getOption("egfiles.token_expires")
+  token_expires <- getOption("egnyte.token_expires")
   expect_true(token_expires > before_time + 3500)
   expect_true(token_expires < after_time + 3700)
 })
@@ -161,11 +161,11 @@ test_that("eg_oauth_refresh updates token expiration time", {
 
 test_that("auto-refresh is triggered when token is expired", {
   withr::local_options(list(
-    egfiles.domain = "testdomain",
-    egfiles.api_key = "old_token",
-    egfiles.refresh_token = "refresh_token",
-    egfiles.token_expires = Sys.time() - 3600,
-    egfiles.oauth_app = list(
+    egnyte.domain = "testdomain",
+    egnyte.api_key = "old_token",
+    egnyte.refresh_token = "refresh_token",
+    egnyte.token_expires = Sys.time() - 3600,
+    egnyte.oauth_app = list(
       domain = "testdomain",
       client_id = "id",
       client_secret = "secret"
@@ -183,11 +183,11 @@ test_that("auto-refresh is triggered when token is expired", {
 
 test_that("auto-refresh succeeds with mocked response", {
   withr::local_options(list(
-    egfiles.domain = "testdomain",
-    egfiles.api_key = "old_expired_token",
-    egfiles.refresh_token = "valid_refresh_token",
-    egfiles.token_expires = Sys.time() - 3600,  # Expired
-    egfiles.oauth_app = list(
+    egnyte.domain = "testdomain",
+    egnyte.api_key = "old_expired_token",
+    egnyte.refresh_token = "valid_refresh_token",
+    egnyte.token_expires = Sys.time() - 3600,  # Expired
+    egnyte.oauth_app = list(
       domain = "testdomain",
       client_id = "id",
       client_secret = "secret"
@@ -214,11 +214,11 @@ test_that("auto-refresh succeeds with mocked response", {
 
 test_that("auto-refresh continues with old token on failure", {
   withr::local_options(list(
-    egfiles.domain = "testdomain",
-    egfiles.api_key = "old_token_still_works",
-    egfiles.refresh_token = "bad_refresh_token",
-    egfiles.token_expires = Sys.time() - 3600,  # Expired
-    egfiles.oauth_app = list(
+    egnyte.domain = "testdomain",
+    egnyte.api_key = "old_token_still_works",
+    egnyte.refresh_token = "bad_refresh_token",
+    egnyte.token_expires = Sys.time() - 3600,  # Expired
+    egnyte.oauth_app = list(
       domain = "testdomain",
       client_id = "id",
       client_secret = "secret"
@@ -248,14 +248,14 @@ test_that("auto-refresh continues with old token on failure", {
 # Tests for eg_oauth_password
 
 test_that("eg_oauth_password errors without app configuration", {
-  withr::local_options(list(egfiles.oauth_app = NULL))
+  withr::local_options(list(egnyte.oauth_app = NULL))
 
   expect_error(eg_oauth_password("user", "pass"), "OAuth app not configured")
 })
 
 test_that("eg_oauth_password errors without credentials", {
   withr::local_options(list(
-    egfiles.oauth_app = list(
+    egnyte.oauth_app = list(
       domain = "test",
       client_id = "id",
       client_secret = "secret"
@@ -274,7 +274,7 @@ test_that("eg_oauth_password errors without credentials", {
 
 test_that("eg_oauth_password reads from environment variables", {
   withr::local_options(list(
-    egfiles.oauth_app = list(
+    egnyte.oauth_app = list(
       domain = "test",
       client_id = "id",
       client_secret = "secret"
@@ -314,8 +314,8 @@ test_that("eg_oauth_password authenticates successfully", {
   result <- eg_oauth_password("testuser", "testpass")
 
   expect_equal(result$access_token, "password_flow_token")
-  expect_equal(getOption("egfiles.api_key"), "password_flow_token")
-  expect_equal(getOption("egfiles.domain"), "testcompany")
+  expect_equal(getOption("egnyte.api_key"), "password_flow_token")
+  expect_equal(getOption("egnyte.domain"), "testcompany")
 })
 
 test_that("eg_oauth_password sets token expiration", {
@@ -333,7 +333,7 @@ test_that("eg_oauth_password sets token expiration", {
   before_time <- Sys.time()
   eg_oauth_password("user", "pass")
 
-  token_expires <- getOption("egfiles.token_expires")
+  token_expires <- getOption("egnyte.token_expires")
   expect_true(token_expires > before_time + 7100)
 })
 
@@ -391,7 +391,7 @@ test_that("eg_oauth_password handles rate limiting", {
 
 test_that("eg_oauth_password handles empty client_secret", {
   withr::local_options(list(
-    egfiles.oauth_app = list(
+    egnyte.oauth_app = list(
       domain = "test",
       client_id = "id",
       client_secret = ""  # Empty secret
@@ -438,7 +438,7 @@ test_that("oauth_exchange_code exchanges code for tokens", {
     .package = "httr2"
   )
 
-  result <- egfiles:::oauth_exchange_code(app, "auth_code_123")
+  result <- egnyte:::oauth_exchange_code(app, "auth_code_123")
 
   expect_equal(result$access_token, "exchanged_token")
   expect_equal(result$refresh_token, "refresh_from_exchange")
@@ -462,7 +462,7 @@ test_that("oauth_exchange_code handles invalid code", {
   )
 
   expect_error(
-    egfiles:::oauth_exchange_code(app, "expired_code"),
+    egnyte:::oauth_exchange_code(app, "expired_code"),
     "Failed to exchange|invalid_grant"
   )
 })
@@ -470,14 +470,14 @@ test_that("oauth_exchange_code handles invalid code", {
 # Tests for %||% operator
 
 test_that("null coalescing operator returns first value if not NULL", {
-  `%||%` <- egfiles:::`%||%`
+  `%||%` <- egnyte:::`%||%`
   expect_equal("value" %||% "default", "value")
   expect_equal(1 %||% 2, 1)
   expect_equal(list(a = 1) %||% list(b = 2), list(a = 1))
 })
 
 test_that("null coalescing operator returns second value if first is NULL", {
-  `%||%` <- egfiles:::`%||%`
+  `%||%` <- egnyte:::`%||%`
   expect_equal(NULL %||% "default", "default")
   expect_equal(NULL %||% 42, 42)
 })

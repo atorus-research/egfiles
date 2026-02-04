@@ -15,21 +15,21 @@ knitr::opts_chunk$set(
 )
 ```
 
-While `eg_read()` and `eg_write()` handle raw file transfers, you probably spend most of your time working with data files that you want to load directly into R as data frames. egfiles provides a set of functions that handle the download-read or write-upload workflow in a single step.
+While `eg_read()` and `eg_write()` handle raw file transfers, you probably spend most of your time working with data files that you want to load directly into R as data frames. egnyte provides a set of functions that handle the download-read or write-upload workflow in a single step.
 
 ## Prerequisites
 
 Before you can read or write files, you need to authenticate. See `vignette("configuration")` or `vignette("authorization")` if you haven't set that up yet.
 
 ```{r}
-library(egfiles)
+library(egnyte)
 
 eg_auth()
 ```
 
 ## Reading Data Files
 
-egfiles provides read functions for common data formats. Each function:
+egnyte provides read functions for common data formats. Each function:
 
 1. Downloads the file from Egnyte to a temporary location
 2. Reads it using the appropriate R package
@@ -205,7 +205,7 @@ eg_write_excel(
 eg_write_xpt(dat, "/Shared/Data/results.xpt")
 ```
 
-Note: egfiles can write XPT files but not native SAS7BDAT files. If you need SAS7BDAT, you'll need to use SAS itself or another tool.
+Note: egnyte can write XPT files but not native SAS7BDAT files. If you need SAS7BDAT, you'll need to use SAS itself or another tool.
 
 ### Stata Files
 
@@ -233,7 +233,7 @@ eg_write_rds(large_data, "/Shared/Data/data.rds", compress = "xz")
 
 ## Optional Dependencies
 
-The format-specific functions require additional packages that aren't installed by default with egfiles:
+The format-specific functions require additional packages that aren't installed by default with egnyte:
 
 | Function | Required Package |
 |----------|-----------------|
@@ -246,7 +246,7 @@ The format-specific functions require additional packages that aren't installed 
 | `eg_read_spss()`, `eg_write_spss()` | haven |
 | `eg_read_rds()`, `eg_write_rds()` | (base R - no extra package) |
 
-If you try to use a function without the required package installed, egfiles will prompt you to install it:
+If you try to use a function without the required package installed, egnyte will prompt you to install it:
 
 ```
 The readr package is required for this function.
@@ -285,7 +285,7 @@ dat <- eg_read_sas(
 
 ### File Extensions Matter
 
-egfiles uses the file extension to determine the format when downloading. Make sure your files have the correct extension:
+egnyte uses the file extension to determine the format when downloading. Make sure your files have the correct extension:
 
 - `.csv` for CSV files
 - `.xlsx` or `.xls` for Excel files

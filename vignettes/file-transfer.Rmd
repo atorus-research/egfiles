@@ -15,14 +15,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette covers how to upload and download files to and from Egnyte using egfiles. We'll focus on the core `eg_read()` and `eg_write()` functions, which handle raw file transfers. If you're working with data files specifically (CSVs, Excel files, etc.) and want to load them directly into R data frames, see `vignette("reading-writing")` instead.
+This vignette covers how to upload and download files to and from Egnyte using egnyte. We'll focus on the core `eg_read()` and `eg_write()` functions, which handle raw file transfers. If you're working with data files specifically (CSVs, Excel files, etc.) and want to load them directly into R data frames, see `vignette("reading-writing")` instead.
 
 ## Prerequisites
 
 Before you can transfer files, you need to authenticate with Egnyte. If you haven't done that yet, see `vignette("configuration")` or `vignette("authorization")` to get set up.
 
 ```{r}
-library(egfiles)
+library(egnyte)
 
 # Authenticate (assuming you've set up environment variables)
 eg_auth()
@@ -131,7 +131,7 @@ eg_write("report.pdf", path = "/Shared/Projects/2024/Q1/report.pdf")
 - Any binary file
 - Text files you want to process yourself
 
-For data files where you want to load the contents directly into R as a data frame, egfiles provides specialized functions like `eg_read_csv()`, `eg_read_excel()`, etc. See `vignette("reading-writing")` for those.
+For data files where you want to load the contents directly into R as a data frame, egnyte provides specialized functions like `eg_read_csv()`, `eg_read_excel()`, etc. See `vignette("reading-writing")` for those.
 
 ## Listing Directory Contents
 
@@ -246,7 +246,7 @@ safe_upload <- function(local_file, egnyte_path, overwrite = FALSE) {
 
 ## Error Handling
 
-When things go wrong, egfiles tries to give you helpful error messages:
+When things go wrong, egnyte tries to give you helpful error messages:
 
 **File not found:**
 ```

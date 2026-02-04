@@ -1,13 +1,13 @@
 test_that("eg_auth stores credentials", {
   withr::local_options(list(
-    egfiles.domain = NULL,
-    egfiles.api_key = NULL
+    egnyte.domain = NULL,
+    egnyte.api_key = NULL
   ))
 
   eg_auth("testdomain", "testapikey")
 
-  expect_equal(getOption("egfiles.domain"), "testdomain")
-  expect_equal(getOption("egfiles.api_key"), "testapikey")
+  expect_equal(getOption("egnyte.domain"), "testdomain")
+  expect_equal(getOption("egnyte.api_key"), "testapikey")
 })
 
 test_that("eg_auth requires both arguments", {
@@ -17,8 +17,8 @@ test_that("eg_auth requires both arguments", {
 
 test_that("eg_get_auth returns stored credentials", {
   withr::local_options(list(
-    egfiles.domain = "mydomain",
-    egfiles.api_key = "mykey"
+    egnyte.domain = "mydomain",
+    egnyte.api_key = "mykey"
   ))
 
   auth <- eg_get_auth()
@@ -29,8 +29,8 @@ test_that("eg_get_auth returns stored credentials", {
 
 test_that("eg_get_auth errors when credentials not set", {
   withr::local_options(list(
-    egfiles.domain = NULL,
-    egfiles.api_key = NULL
+    egnyte.domain = NULL,
+    egnyte.api_key = NULL
   ))
   withr::local_envvar(list(
     EGNYTE_DOMAIN = "",
@@ -42,8 +42,8 @@ test_that("eg_get_auth errors when credentials not set", {
 
 test_that("eg_get_auth reads from environment variables", {
   withr::local_options(list(
-    egfiles.domain = NULL,
-    egfiles.api_key = NULL
+    egnyte.domain = NULL,
+    egnyte.api_key = NULL
   ))
   withr::local_envvar(list(
     EGNYTE_DOMAIN = "envdomain",
@@ -58,8 +58,8 @@ test_that("eg_get_auth reads from environment variables", {
 
 test_that("options take priority over environment variables", {
   withr::local_options(list(
-    egfiles.domain = "optdomain",
-    egfiles.api_key = "optkey"
+    egnyte.domain = "optdomain",
+    egnyte.api_key = "optkey"
   ))
   withr::local_envvar(list(
     EGNYTE_DOMAIN = "envdomain",
