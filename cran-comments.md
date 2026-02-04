@@ -1,6 +1,10 @@
+Package version 0.1.0
+
+Initial Release
+
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 note
 
 * This is a new release.
 
