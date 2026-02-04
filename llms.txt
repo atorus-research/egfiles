@@ -138,6 +138,8 @@ Core functions for uploading and downloading files
   : Download a File from Egnyte
 - [`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md)
   : Upload a File to Egnyte
+- [`eg_list()`](https://username.github.io/egfiles/reference/eg_list.md)
+  : List Files in an Egnyte Directory
 
 ## Reading Files
 

@@ -160,6 +160,69 @@ etc. See
 [`vignette("reading-writing")`](https://username.github.io/egfiles/articles/reading-writing.md)
 for those.
 
+## Listing Directory Contents
+
+The
+[`eg_list()`](https://username.github.io/egfiles/reference/eg_list.md)
+function returns the full paths of files within an Egnyte directory.
+
+### Basic Usage
+
+``` r
+# List files in a directory
+files <- eg_list("/Shared/Documents")
+files
+#> [1] "/Shared/Documents/report.pdf"
+#> [2] "/Shared/Documents/notes.txt"
+#> [3] "/Shared/Documents/data.csv"
+```
+
+### Recursive Listing
+
+To list files in subdirectories as well, use `recursive = TRUE`:
+
+``` r
+# List all files, including those in subdirectories
+all_files <- eg_list("/Shared/Projects", recursive = TRUE)
+all_files
+#> [1] "/Shared/Projects/readme.txt"
+#> [2] "/Shared/Projects/2024/Q1/report.pdf"
+#> [3] "/Shared/Projects/2024/Q1/data.xlsx"
+#> [4] "/Shared/Projects/2024/Q2/summary.docx"
+```
+
+### Filtering Results
+
+Since
+[`eg_list()`](https://username.github.io/egfiles/reference/eg_list.md)
+returns a character vector, you can filter results with standard R
+functions:
+
+``` r
+# Get only CSV files
+all_files <- eg_list("/Shared/Data", recursive = TRUE)
+csv_files <- all_files[grepl("\\.csv$", all_files)]
+
+# Get files matching a pattern
+reports <- all_files[grepl("report", all_files, ignore.case = TRUE)]
+```
+
+### Combining with Downloads
+
+A common workflow is to list files, filter them, and then download:
+
+``` r
+# Find all Excel files in a project folder
+files <- eg_list("/Shared/Projects/2024", recursive = TRUE)
+excel_files <- files[grepl("\\.xlsx$", files)]
+
+# Download each one
+for (f in excel_files) {
+  local_name <- basename(f)
+  eg_read(f, destfile = file.path("downloads", local_name))
+}
+```
+
 ## Common Patterns
 
 ### Downloading, Processing, and Re-uploading

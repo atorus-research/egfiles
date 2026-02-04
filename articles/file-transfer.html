@@ -208,6 +208,66 @@ a data frame, egfiles provides specialized functions like
 <code><a href="../articles/reading-writing.html">vignette("reading-writing")</a></code> for those.</p>
 </div>
 <div class="section level2">
+<h2 id="listing-directory-contents">Listing Directory Contents<a class="anchor" aria-label="anchor" href="#listing-directory-contents"></a>
+</h2>
+<p>The <code><a href="../reference/eg_list.html">eg_list()</a></code> function returns the full paths of files
+within an Egnyte directory.</p>
+<div class="section level3">
+<h3 id="basic-usage-2">Basic Usage<a class="anchor" aria-label="anchor" href="#basic-usage-2"></a>
+</h3>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># List files in a directory</span></span>
+<span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eg_list.html">eg_list</a></span><span class="op">(</span><span class="st">"/Shared/Documents"</span><span class="op">)</span></span>
+<span><span class="va">files</span></span>
+<span><span class="co">#&gt; [1] "/Shared/Documents/report.pdf"</span></span>
+<span><span class="co">#&gt; [2] "/Shared/Documents/notes.txt"</span></span>
+<span><span class="co">#&gt; [3] "/Shared/Documents/data.csv"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="recursive-listing">Recursive Listing<a class="anchor" aria-label="anchor" href="#recursive-listing"></a>
+</h3>
+<p>To list files in subdirectories as well, use
+<code>recursive = TRUE</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># List all files, including those in subdirectories</span></span>
+<span><span class="va">all_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eg_list.html">eg_list</a></span><span class="op">(</span><span class="st">"/Shared/Projects"</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">all_files</span></span>
+<span><span class="co">#&gt; [1] "/Shared/Projects/readme.txt"</span></span>
+<span><span class="co">#&gt; [2] "/Shared/Projects/2024/Q1/report.pdf"</span></span>
+<span><span class="co">#&gt; [3] "/Shared/Projects/2024/Q1/data.xlsx"</span></span>
+<span><span class="co">#&gt; [4] "/Shared/Projects/2024/Q2/summary.docx"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="filtering-results">Filtering Results<a class="anchor" aria-label="anchor" href="#filtering-results"></a>
+</h3>
+<p>Since <code><a href="../reference/eg_list.html">eg_list()</a></code> returns a character vector, you can
+filter results with standard R functions:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get only CSV files</span></span>
+<span><span class="va">all_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eg_list.html">eg_list</a></span><span class="op">(</span><span class="st">"/Shared/Data"</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">csv_files</span> <span class="op">&lt;-</span> <span class="va">all_files</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"\\.csv$"</span>, <span class="va">all_files</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Get files matching a pattern</span></span>
+<span><span class="va">reports</span> <span class="op">&lt;-</span> <span class="va">all_files</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"report"</span>, <span class="va">all_files</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="combining-with-downloads">Combining with Downloads<a class="anchor" aria-label="anchor" href="#combining-with-downloads"></a>
+</h3>
+<p>A common workflow is to list files, filter them, and then
+download:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Find all Excel files in a project folder</span></span>
+<span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eg_list.html">eg_list</a></span><span class="op">(</span><span class="st">"/Shared/Projects/2024"</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">excel_files</span> <span class="op">&lt;-</span> <span class="va">files</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"\\.xlsx$"</span>, <span class="va">files</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Download each one</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">f</span> <span class="kw">in</span> <span class="va">excel_files</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">local_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/eg_read.html">eg_read</a></span><span class="op">(</span><span class="va">f</span>, destfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"downloads"</span>, <span class="va">local_name</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="common-patterns">Common Patterns<a class="anchor" aria-label="anchor" href="#common-patterns"></a>
 </h2>
 <div class="section level3">
@@ -215,7 +275,7 @@ a data frame, egfiles provides specialized functions like
 </h3>
 <p>A common workflow is to download a file, do something with it, and
 upload the result:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Download the raw data</span></span>
 <span><span class="fu"><a href="../reference/eg_read.html">eg_read</a></span><span class="op">(</span><span class="st">"/Shared/Data/raw_data.xlsx"</span>, destfile <span class="op">=</span> <span class="st">"raw_data.xlsx"</span><span class="op">)</span></span>
 <span></span>
@@ -230,7 +290,7 @@ upload the result:</p>
 </h3>
 <p>If you need to download multiple files, you can use a loop or apply
 function:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Files to download</span></span>
 <span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"/Shared/Data/file1.csv"</span>,</span>
@@ -249,7 +309,7 @@ function:</p>
 </h3>
 <p>There’s no dedicated function to check if a file exists, but you can
 use a simple pattern:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safe_upload</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">local_file</span>, <span class="va">egnyte_path</span>, <span class="va">overwrite</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/eg_write.html">eg_write</a></span><span class="op">(</span><span class="va">local_file</span>, path <span class="op">=</span> <span class="va">egnyte_path</span>, overwrite <span class="op">=</span> <span class="va">overwrite</span><span class="op">)</span>,</span>
