@@ -1,10 +1,10 @@
 # Configuration
 
-Before you can use egfiles to interact with Egnyte, you need to set up
+Before you can use egnyte to interact with Egnyte, you need to set up
 your credentials. This vignette walks through how to get an API key and
-configure it for use with egfiles. If you’re looking to understand the
+configure it for use with egnyte. If you’re looking to understand the
 different authentication methods available, check out
-[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+[`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md)
 after you’ve finished here.
 
 ## Getting an API Key
@@ -18,7 +18,7 @@ regular user.
 If you have admin access to your Egnyte account, you can generate an API
 key directly: 1. Log in to your Egnyte account 2. Navigate to
 **Settings** \> **Security & Authentication** \> **API Keys** 3. Click
-**Create New Key** 4. Give the key a descriptive name (e.g., “R egfiles
+**Create New Key** 4. Give the key a descriptive name (e.g., “R egnyte
 access”) 5. Copy the generated key - you won’t be able to see it again
 
 ### If You’re Not an Admin
@@ -30,17 +30,17 @@ need the API key for (R-based file access) - What permissions you need
 
 Alternatively, you can use OAuth authentication, which doesn’t require
 admin involvement. See
-[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+[`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md)
 for details on the OAuth options.
 
 ## Setting Up Your Credentials
 
-Once you have your API key, you can configure egfiles using the
-[`eg_auth()`](https://username.github.io/egfiles/reference/eg_auth.md)
+Once you have your API key, you can configure egnyte using the
+[`eg_auth()`](https://atorus-research.github.io/egnyte/reference/eg_auth.md)
 function:
 
 ``` r
-library(egfiles)
+library(egnyte)
 
 eg_auth(
   domain = "your-company",
@@ -53,27 +53,27 @@ before `.egnyte.com` in your Egnyte URL. So if you access Egnyte at
 `https://acme-corp.egnyte.com`, your domain is `"acme-corp"`.
 
 After calling
-[`eg_auth()`](https://username.github.io/egfiles/reference/eg_auth.md),
+[`eg_auth()`](https://atorus-research.github.io/egnyte/reference/eg_auth.md),
 you’re ready to use the file reading and writing functions.
 
 ## Using Environment Variables
 
 Hardcoding credentials in your scripts is generally a bad idea. Anyone
-who sees your code also sees your API key. Instead, egfiles supports
+who sees your code also sees your API key. Instead, egnyte supports
 reading credentials from environment variables.
 
 Set these environment variables on your system: - `EGNYTE_DOMAIN`: Your
 Egnyte domain - `EGNYTE_API_KEY`: Your API key
 
 Then you can call
-[`eg_auth()`](https://username.github.io/egfiles/reference/eg_auth.md)
+[`eg_auth()`](https://atorus-research.github.io/egnyte/reference/eg_auth.md)
 without any arguments:
 
 ``` r
 eg_auth()
 ```
 
-egfiles will automatically pick up the values from your environment.
+egnyte will automatically pick up the values from your environment.
 
 ### Setting Environment Variables
 
@@ -135,7 +135,7 @@ password:
 
 For team environments where you need more control over authentication
 and token management, consider using OAuth instead. See
-[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+[`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md)
 for details.
 
 ## Next Steps
@@ -143,8 +143,8 @@ for details.
 Now that you have your credentials configured, you can:
 
 - Learn about the different authentication methods in
-  [`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+  [`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md)
 - Start transferring files with
-  [`vignette("file-transfer")`](https://username.github.io/egfiles/articles/file-transfer.md)
+  [`vignette("file-transfer")`](https://atorus-research.github.io/egnyte/articles/file-transfer.md)
 - Read and write data files with
-  [`vignette("reading-writing")`](https://username.github.io/egfiles/articles/reading-writing.md)
+  [`vignette("reading-writing")`](https://atorus-research.github.io/egnyte/articles/reading-writing.md)

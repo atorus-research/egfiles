@@ -8,15 +8,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/username/egfiles/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/atorus-research/egnyte/blob/main/DESCRIPTION)
 
-Stackhouse M (2026). *egfiles: Read and Write Files from Egnyte*. R
-package version 0.1.0, <https://github.com/username/egfiles>.
+Stackhouse M (2026). *egnyte: Read and Write Files from Egnyte*. R
+package version 0.1.0, <https://github.com/atorus-research/egnyte>.
 
     @Manual{,
-      title = {egfiles: Read and Write Files from Egnyte},
+      title = {egnyte: Read and Write Files from Egnyte},
       author = {Mike Stackhouse},
       year = {2026},
       note = {R package version 0.1.0},
-      url = {https://github.com/username/egfiles},
+      url = {https://github.com/atorus-research/egnyte},
     }

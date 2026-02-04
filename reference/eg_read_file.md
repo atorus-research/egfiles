@@ -76,10 +76,10 @@ function, so you can use any options those functions support (e.g.,
 
 ## See also
 
-- [`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)
+- [`eg_read()`](https://atorus-research.github.io/egnyte/reference/eg_read.md)
   for downloading raw files without parsing
 
-- [eg_write_file](https://username.github.io/egfiles/reference/eg_write_file.md)
+- [eg_write_file](https://atorus-research.github.io/egnyte/reference/eg_write_file.md)
   for writing data files to Egnyte
 
 ## Examples

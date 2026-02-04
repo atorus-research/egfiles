@@ -78,16 +78,16 @@ function.
 **Note on SAS files:** Haven can only write SAS transport files (.xpt),
 not native SAS data files (.sas7bdat). Transport files are compatible
 with SAS and can be read back with
-[`eg_read_xpt()`](https://username.github.io/egfiles/reference/eg_read_file.md)
+[`eg_read_xpt()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md)
 or
 [`haven::read_xpt()`](https://haven.tidyverse.org/reference/read_xpt.html).
 
 ## See also
 
-- [`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md)
+- [`eg_write()`](https://atorus-research.github.io/egnyte/reference/eg_write.md)
   for uploading raw files without conversion
 
-- [eg_read_file](https://username.github.io/egfiles/reference/eg_read_file.md)
+- [eg_read_file](https://atorus-research.github.io/egnyte/reference/eg_read_file.md)
   for reading data files from Egnyte
 
 ## Examples

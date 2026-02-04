@@ -52,7 +52,7 @@ domain. After certification, it works with all Egnyte domains.
 
 ## See also
 
-[`eg_oauth_authorize()`](https://username.github.io/egfiles/reference/eg_oauth_authorize.md)
+[`eg_oauth_authorize()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_authorize.md)
 to complete the OAuth flow.
 
 ## Examples

@@ -42,12 +42,12 @@ you'll be redirected to your configured URI. Copy the `code` parameter
 from the URL (everything after `code=` and before any `&`).
 
 Access tokens expire after 30 days. Use
-[`eg_oauth_refresh()`](https://username.github.io/egfiles/reference/eg_oauth_refresh.md)
+[`eg_oauth_refresh()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_refresh.md)
 to obtain a new token using the refresh token.
 
 ## See also
 
-[`eg_oauth_app()`](https://username.github.io/egfiles/reference/eg_oauth_app.md)
+[`eg_oauth_app()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_app.md)
 to configure the OAuth application first.
 
 ## Examples

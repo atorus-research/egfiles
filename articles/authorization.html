@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Authorization • egfiles</title>
+<title>Authorization • egnyte</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="../index.html">egfiles</a>
+    <a class="navbar-brand me-2" href="../index.html">egnyte</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
@@ -48,7 +48,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/username/egfiles/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/atorus-research/egnyte/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -65,13 +65,13 @@
       <h1>Authorization</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/username/egfiles/blob/main/vignettes/authorization.Rmd" class="external-link"><code>vignettes/authorization.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/atorus-research/egnyte/blob/main/vignettes/authorization.Rmd" class="external-link"><code>vignettes/authorization.Rmd</code></a></small>
       <div class="d-none name"><code>authorization.Rmd</code></div>
     </div>
 
     
     
-<p>egfiles supports multiple methods for authenticating with the Egnyte
+<p>egnyte supports multiple methods for authenticating with the Egnyte
 API. Which one you should use depends on your situation - whether you
 have admin access, whether you’re running scripts interactively or in
 automation, and what level of security you need.</p>
@@ -80,7 +80,7 @@ to use it, and shows you how to set it up.</p>
 <div class="section level2">
 <h2 id="overview-of-authentication-methods">Overview of Authentication Methods<a class="anchor" aria-label="anchor" href="#overview-of-authentication-methods"></a>
 </h2>
-<p>egfiles supports three authentication approaches:</p>
+<p>egnyte supports three authentication approaches:</p>
 <table class="table">
 <colgroup>
 <col width="16%">
@@ -124,7 +124,7 @@ to use it, and shows you how to set it up.</p>
 admin (or create one yourself if you are the admin), and use it
 directly.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/username/egfiles" class="external-link">egfiles</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/atorus-research/egnyte" class="external-link">egnyte</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/eg_auth.html">eg_auth</a></span><span class="op">(</span></span>
 <span>  domain <span class="op">=</span> <span class="st">"your-company"</span>,</span>
@@ -174,9 +174,9 @@ Secret</strong>
 <li>Set your redirect URI (default:
 <code>https://localhost/callback</code>)</li>
 </ol>
-<p>Then configure egfiles with your application credentials:</p>
+<p>Then configure egnyte with your application credentials:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/username/egfiles" class="external-link">egfiles</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/atorus-research/egnyte" class="external-link">egnyte</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/eg_oauth_app.html">eg_oauth_app</a></span><span class="op">(</span></span>
 <span>  domain <span class="op">=</span> <span class="st">"your-company"</span>,</span>
@@ -194,13 +194,13 @@ Secret</strong>
 Prompt you to log in and approve the application 3. Redirect you to a
 page with an authorization code 4. Ask you to paste that code back into
 R</p>
-<p>After you paste the code, egfiles exchanges it for access tokens and
+<p>After you paste the code, egnyte exchanges it for access tokens and
 stores them for future use.</p>
 </div>
 <div class="section level3">
 <h3 id="token-refresh">Token Refresh<a class="anchor" aria-label="anchor" href="#token-refresh"></a>
 </h3>
-<p>Access tokens expire after 30 days. When they do, egfiles will
+<p>Access tokens expire after 30 days. When they do, egnyte will
 automatically refresh them using the stored refresh token - no user
 interaction required.</p>
 <p>If you need to manually refresh:</p>
@@ -240,7 +240,7 @@ scenarios where you can’t have a human in the loop.</p>
 </h3>
 <p>First, configure your OAuth application (same as above):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/username/egfiles" class="external-link">egfiles</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/atorus-research/egnyte" class="external-link">egnyte</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/eg_oauth_app.html">eg_oauth_app</a></span><span class="op">(</span></span>
 <span>  domain <span class="op">=</span> <span class="st">"your-company"</span>,</span>
@@ -257,7 +257,7 @@ scenarios where you can’t have a human in the loop.</p>
 <div class="section level3">
 <h3 id="using-environment-variables">Using Environment Variables<a class="anchor" aria-label="anchor" href="#using-environment-variables"></a>
 </h3>
-<p>You probably don’t want passwords in your scripts. egfiles can read
+<p>You probably don’t want passwords in your scripts. egnyte can read
 credentials from environment variables:</p>
 <ul>
 <li>
@@ -269,7 +269,7 @@ credentials from environment variables:</p>
 <code class="sourceCode R"><span><span class="co"># With environment variables set, just call:</span></span>
 <span><span class="fu"><a href="../reference/eg_oauth_password.html">eg_oauth_password</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you’re running interactively and the environment variables aren’t
-set, egfiles will prompt you to enter your credentials.</p>
+set, egnyte will prompt you to enter your credentials.</p>
 </div>
 <div class="section level3">
 <h3 id="important-limitations">Important Limitations<a class="anchor" aria-label="anchor" href="#important-limitations"></a>
@@ -324,23 +324,22 @@ setup, but better for teams.</p>
 <div class="section level2">
 <h2 id="how-authentication-state-is-stored">How Authentication State is Stored<a class="anchor" aria-label="anchor" href="#how-authentication-state-is-stored"></a>
 </h2>
-<p>Regardless of which method you use, egfiles stores your
-authentication state in R options for the duration of your session:</p>
+<p>Regardless of which method you use, egnyte stores your authentication
+state in R options for the duration of your session:</p>
 <ul>
 <li>
-<code>egfiles.domain</code>: Your Egnyte domain</li>
+<code>egnyte.domain</code>: Your Egnyte domain</li>
 <li>
-<code>egfiles.api_key</code>: Your API key (if using API key
+<code>egnyte.api_key</code>: Your API key (if using API key
 auth)</li>
 <li>
-<code>egfiles.access_token</code>: Your OAuth access token (if using
+<code>egnyte.access_token</code>: Your OAuth access token (if using
 OAuth)</li>
 <li>
-<code>egfiles.refresh_token</code>: Your OAuth refresh token (if
+<code>egnyte.refresh_token</code>: Your OAuth refresh token (if
 available)</li>
 <li>
-<code>egfiles.token_expiry</code>: When your OAuth token
-expires</li>
+<code>egnyte.token_expiry</code>: When your OAuth token expires</li>
 </ul>
 <p>These are cleared when your R session ends. If you want persistent
 authentication across sessions, use environment variables for your
@@ -360,7 +359,7 @@ admin</li>
 <strong>OAuth Refresh Tokens</strong>: Long-lived, used to get new
 access tokens</li>
 </ul>
-<p>egfiles handles token refresh automatically when using the
+<p>egnyte handles token refresh automatically when using the
 authorization code flow. If you’re using the password flow and your
 token expires, you’ll need to call <code><a href="../reference/eg_oauth_password.html">eg_oauth_password()</a></code>
 again.</p>

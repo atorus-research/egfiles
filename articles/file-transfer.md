@@ -1,27 +1,27 @@
 # File Transfer
 
 This vignette covers how to upload and download files to and from Egnyte
-using egfiles. We’ll focus on the core
-[`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)
+using egnyte. We’ll focus on the core
+[`eg_read()`](https://atorus-research.github.io/egnyte/reference/eg_read.md)
 and
-[`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md)
+[`eg_write()`](https://atorus-research.github.io/egnyte/reference/eg_write.md)
 functions, which handle raw file transfers. If you’re working with data
 files specifically (CSVs, Excel files, etc.) and want to load them
 directly into R data frames, see
-[`vignette("reading-writing")`](https://username.github.io/egfiles/articles/reading-writing.md)
+[`vignette("reading-writing")`](https://atorus-research.github.io/egnyte/articles/reading-writing.md)
 instead.
 
 ## Prerequisites
 
 Before you can transfer files, you need to authenticate with Egnyte. If
 you haven’t done that yet, see
-[`vignette("configuration")`](https://username.github.io/egfiles/articles/configuration.md)
+[`vignette("configuration")`](https://atorus-research.github.io/egnyte/articles/configuration.md)
 or
-[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+[`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md)
 to get set up.
 
 ``` r
-library(egfiles)
+library(egnyte)
 
 # Authenticate (assuming you've set up environment variables)
 eg_auth()
@@ -30,7 +30,7 @@ eg_auth()
 ## Downloading Files
 
 The
-[`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)
+[`eg_read()`](https://atorus-research.github.io/egnyte/reference/eg_read.md)
 function downloads a file from Egnyte to your local machine.
 
 ### Basic Usage
@@ -47,7 +47,7 @@ typically start with `/Shared/` for shared folders or
 ### Downloading to a Temporary File
 
 If you don’t specify a destination,
-[`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)
+[`eg_read()`](https://atorus-research.github.io/egnyte/reference/eg_read.md)
 creates a temporary file and returns its path:
 
 ``` r
@@ -91,7 +91,7 @@ The path after your domain is the Egnyte path.
 ## Uploading Files
 
 The
-[`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md)
+[`eg_write()`](https://atorus-research.github.io/egnyte/reference/eg_write.md)
 function uploads a local file to Egnyte.
 
 ### Basic Usage
@@ -107,7 +107,7 @@ you want it to end up in Egnyte.
 ### Handling Existing Files
 
 By default,
-[`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md)
+[`eg_write()`](https://atorus-research.github.io/egnyte/reference/eg_write.md)
 will fail if a file already exists at the destination:
 
 ``` r
@@ -140,9 +140,9 @@ eg_write("report.pdf", path = "/Shared/Projects/2024/Q1/report.pdf")
 
 ## Working with Different File Types
 
-[`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)
+[`eg_read()`](https://atorus-research.github.io/egnyte/reference/eg_read.md)
 and
-[`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md)
+[`eg_write()`](https://atorus-research.github.io/egnyte/reference/eg_write.md)
 work with any file type - they just transfer bytes. This makes them
 suitable for:
 
@@ -153,17 +153,17 @@ suitable for:
 - Text files you want to process yourself
 
 For data files where you want to load the contents directly into R as a
-data frame, egfiles provides specialized functions like
-[`eg_read_csv()`](https://username.github.io/egfiles/reference/eg_read_file.md),
-[`eg_read_excel()`](https://username.github.io/egfiles/reference/eg_read_file.md),
+data frame, egnyte provides specialized functions like
+[`eg_read_csv()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md),
+[`eg_read_excel()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md),
 etc. See
-[`vignette("reading-writing")`](https://username.github.io/egfiles/articles/reading-writing.md)
+[`vignette("reading-writing")`](https://atorus-research.github.io/egnyte/articles/reading-writing.md)
 for those.
 
 ## Listing Directory Contents
 
 The
-[`eg_list()`](https://username.github.io/egfiles/reference/eg_list.md)
+[`eg_list()`](https://atorus-research.github.io/egnyte/reference/eg_list.md)
 function returns the full paths of files within an Egnyte directory.
 
 ### Basic Usage
@@ -194,7 +194,7 @@ all_files
 ### Filtering Results
 
 Since
-[`eg_list()`](https://username.github.io/egfiles/reference/eg_list.md)
+[`eg_list()`](https://atorus-research.github.io/egnyte/reference/eg_list.md)
 returns a character vector, you can filter results with standard R
 functions:
 
@@ -283,7 +283,7 @@ safe_upload <- function(local_file, egnyte_path, overwrite = FALSE) {
 
 ## Error Handling
 
-When things go wrong, egfiles tries to give you helpful error messages:
+When things go wrong, egnyte tries to give you helpful error messages:
 
 **File not found:**
 
@@ -310,13 +310,13 @@ Either use a different path or set `overwrite = TRUE`.
     Error: Invalid API key or token expired
 
 Re-run your authentication setup. See
-[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md).
+[`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md).
 
 ## Next Steps
 
 Now that you know how to transfer files:
 
 - Learn to read data files directly into R with
-  [`vignette("reading-writing")`](https://username.github.io/egfiles/articles/reading-writing.md)
+  [`vignette("reading-writing")`](https://atorus-research.github.io/egnyte/articles/reading-writing.md)
 - Review authentication options in
-  [`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+  [`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md)

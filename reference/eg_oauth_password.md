@@ -33,7 +33,7 @@ the application with their credentials. The username and password are
 sent directly to Egnyte's token endpoint.
 
 You must first configure the OAuth app with
-[`eg_oauth_app()`](https://username.github.io/egfiles/reference/eg_oauth_app.md).
+[`eg_oauth_app()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_app.md).
 
 Credentials can be provided via:
 
@@ -48,7 +48,7 @@ token expires (after 30 days), you'll need to authenticate again.
 
 ## See also
 
-[`eg_oauth_app()`](https://username.github.io/egfiles/reference/eg_oauth_app.md)
+[`eg_oauth_app()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_app.md)
 to configure the OAuth application first.
 
 ## Examples

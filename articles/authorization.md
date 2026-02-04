@@ -1,8 +1,8 @@
 # Authorization
 
-egfiles supports multiple methods for authenticating with the Egnyte
-API. Which one you should use depends on your situation - whether you
-have admin access, whether you’re running scripts interactively or in
+egnyte supports multiple methods for authenticating with the Egnyte API.
+Which one you should use depends on your situation - whether you have
+admin access, whether you’re running scripts interactively or in
 automation, and what level of security you need.
 
 This vignette walks through each authentication method, explains when to
@@ -10,7 +10,7 @@ use it, and shows you how to set it up.
 
 ## Overview of Authentication Methods
 
-egfiles supports three authentication approaches:
+egnyte supports three authentication approaches:
 
 | Method                   | Best For                           | Admin Required      | Refresh Tokens |
 |--------------------------|------------------------------------|---------------------|----------------|
@@ -26,7 +26,7 @@ This is the simplest approach. You get an API key from your Egnyte admin
 (or create one yourself if you are the admin), and use it directly.
 
 ``` r
-library(egfiles)
+library(egnyte)
 
 eg_auth(
   domain = "your-company",
@@ -49,7 +49,7 @@ eg_auth(
 - You need more granular control over permissions
 
 For details on obtaining and configuring an API key, see
-[`vignette("configuration")`](https://username.github.io/egfiles/articles/configuration.md).
+[`vignette("configuration")`](https://atorus-research.github.io/egnyte/articles/configuration.md).
 
 ## OAuth 2.0 Authorization Code Flow
 
@@ -67,10 +67,10 @@ Egnyte:
 3.  Note your **Client ID** and **Client Secret**
 4.  Set your redirect URI (default: `https://localhost/callback`)
 
-Then configure egfiles with your application credentials:
+Then configure egnyte with your application credentials:
 
 ``` r
-library(egfiles)
+library(egnyte)
 
 eg_oauth_app(
   domain = "your-company",
@@ -92,12 +92,12 @@ Prompt you to log in and approve the application 3. Redirect you to a
 page with an authorization code 4. Ask you to paste that code back into
 R
 
-After you paste the code, egfiles exchanges it for access tokens and
+After you paste the code, egnyte exchanges it for access tokens and
 stores them for future use.
 
 ### Token Refresh
 
-Access tokens expire after 30 days. When they do, egfiles will
+Access tokens expire after 30 days. When they do, egnyte will
 automatically refresh them using the stored refresh token - no user
 interaction required.
 
@@ -132,7 +132,7 @@ you can’t have a human in the loop.
 First, configure your OAuth application (same as above):
 
 ``` r
-library(egfiles)
+library(egnyte)
 
 eg_oauth_app(
   domain = "your-company",
@@ -152,7 +152,7 @@ eg_oauth_password(
 
 ### Using Environment Variables
 
-You probably don’t want passwords in your scripts. egfiles can read
+You probably don’t want passwords in your scripts. egnyte can read
 credentials from environment variables:
 
 - `EGNYTE_USERNAME`: Your Egnyte username
@@ -164,7 +164,7 @@ eg_oauth_password()
 ```
 
 If you’re running interactively and the environment variables aren’t
-set, egfiles will prompt you to enter your credentials.
+set, egnyte will prompt you to enter your credentials.
 
 ### Important Limitations
 
@@ -195,28 +195,28 @@ code flow:
 Here’s a decision tree:
 
 **Do you have an API key or can easily get one?** - Yes → Use
-[`eg_auth()`](https://username.github.io/egfiles/reference/eg_auth.md)
+[`eg_auth()`](https://atorus-research.github.io/egnyte/reference/eg_auth.md)
 with your API key. Simple and effective.
 
 **Do you need automated, unattended execution?** - Yes → Use
-[`eg_oauth_password()`](https://username.github.io/egfiles/reference/eg_oauth_password.md).
+[`eg_oauth_password()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_password.md).
 Set credentials in environment variables.
 
 **Are you building for multiple users or want OAuth benefits?** - Yes →
 Use
-[`eg_oauth_authorize()`](https://username.github.io/egfiles/reference/eg_oauth_authorize.md).
+[`eg_oauth_authorize()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_authorize.md).
 More setup, but better for teams.
 
 ## How Authentication State is Stored
 
-Regardless of which method you use, egfiles stores your authentication
+Regardless of which method you use, egnyte stores your authentication
 state in R options for the duration of your session:
 
-- `egfiles.domain`: Your Egnyte domain
-- `egfiles.api_key`: Your API key (if using API key auth)
-- `egfiles.access_token`: Your OAuth access token (if using OAuth)
-- `egfiles.refresh_token`: Your OAuth refresh token (if available)
-- `egfiles.token_expiry`: When your OAuth token expires
+- `egnyte.domain`: Your Egnyte domain
+- `egnyte.api_key`: Your API key (if using API key auth)
+- `egnyte.access_token`: Your OAuth access token (if using OAuth)
+- `egnyte.refresh_token`: Your OAuth refresh token (if available)
+- `egnyte.token_expiry`: When your OAuth token expires
 
 These are cleared when your R session ends. If you want persistent
 authentication across sessions, use environment variables for your
@@ -230,10 +230,10 @@ A quick note on token lifetimes:
 - **OAuth Access Tokens**: Expire after 30 days
 - **OAuth Refresh Tokens**: Long-lived, used to get new access tokens
 
-egfiles handles token refresh automatically when using the authorization
+egnyte handles token refresh automatically when using the authorization
 code flow. If you’re using the password flow and your token expires,
 you’ll need to call
-[`eg_oauth_password()`](https://username.github.io/egfiles/reference/eg_oauth_password.md)
+[`eg_oauth_password()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_password.md)
 again.
 
 ## Troubleshooting
@@ -259,7 +259,7 @@ again.
 
 - Your refresh token might have been revoked
 - Run
-  [`eg_oauth_authorize()`](https://username.github.io/egfiles/reference/eg_oauth_authorize.md)
+  [`eg_oauth_authorize()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_authorize.md)
   again to get new tokens
 
 ## Next Steps
@@ -267,6 +267,6 @@ again.
 Now that you understand the authentication options:
 
 - Start transferring files with
-  [`vignette("file-transfer")`](https://username.github.io/egfiles/articles/file-transfer.md)
+  [`vignette("file-transfer")`](https://atorus-research.github.io/egnyte/articles/file-transfer.md)
 - Read and write data files with
-  [`vignette("reading-writing")`](https://username.github.io/egfiles/articles/reading-writing.md)
+  [`vignette("reading-writing")`](https://atorus-research.github.io/egnyte/articles/reading-writing.md)

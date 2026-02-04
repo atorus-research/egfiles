@@ -1,31 +1,31 @@
 # Reading and Writing Data Files
 
 While
-[`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)
+[`eg_read()`](https://atorus-research.github.io/egnyte/reference/eg_read.md)
 and
-[`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md)
+[`eg_write()`](https://atorus-research.github.io/egnyte/reference/eg_write.md)
 handle raw file transfers, you probably spend most of your time working
 with data files that you want to load directly into R as data frames.
-egfiles provides a set of functions that handle the download-read or
+egnyte provides a set of functions that handle the download-read or
 write-upload workflow in a single step.
 
 ## Prerequisites
 
 Before you can read or write files, you need to authenticate. See
-[`vignette("configuration")`](https://username.github.io/egfiles/articles/configuration.md)
+[`vignette("configuration")`](https://atorus-research.github.io/egnyte/articles/configuration.md)
 or
-[`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+[`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md)
 if you haven’t set that up yet.
 
 ``` r
-library(egfiles)
+library(egnyte)
 
 eg_auth()
 ```
 
 ## Reading Data Files
 
-egfiles provides read functions for common data formats. Each function:
+egnyte provides read functions for common data formats. Each function:
 
 1.  Downloads the file from Egnyte to a temporary location
 2.  Reads it using the appropriate R package
@@ -213,7 +213,7 @@ eg_write_excel(
 eg_write_xpt(dat, "/Shared/Data/results.xpt")
 ```
 
-Note: egfiles can write XPT files but not native SAS7BDAT files. If you
+Note: egnyte can write XPT files but not native SAS7BDAT files. If you
 need SAS7BDAT, you’ll need to use SAS itself or another tool.
 
 ### Stata Files
@@ -243,21 +243,21 @@ eg_write_rds(large_data, "/Shared/Data/data.rds", compress = "xz")
 ## Optional Dependencies
 
 The format-specific functions require additional packages that aren’t
-installed by default with egfiles:
+installed by default with egnyte:
 
-| Function                                                                                                                                                                                                                                            | Required Package            |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
-| [`eg_read_csv()`](https://username.github.io/egfiles/reference/eg_read_file.md), [`eg_write_csv()`](https://username.github.io/egfiles/reference/eg_write_file.md)                                                                                  | readr                       |
-| [`eg_read_delim()`](https://username.github.io/egfiles/reference/eg_read_file.md), [`eg_write_delim()`](https://username.github.io/egfiles/reference/eg_write_file.md)                                                                              | readr                       |
-| [`eg_read_excel()`](https://username.github.io/egfiles/reference/eg_read_file.md)                                                                                                                                                                   | readxl                      |
-| [`eg_write_excel()`](https://username.github.io/egfiles/reference/eg_write_file.md)                                                                                                                                                                 | writexl                     |
-| [`eg_read_sas()`](https://username.github.io/egfiles/reference/eg_read_file.md), [`eg_read_xpt()`](https://username.github.io/egfiles/reference/eg_read_file.md), [`eg_write_xpt()`](https://username.github.io/egfiles/reference/eg_write_file.md) | haven                       |
-| [`eg_read_stata()`](https://username.github.io/egfiles/reference/eg_read_file.md), [`eg_write_stata()`](https://username.github.io/egfiles/reference/eg_write_file.md)                                                                              | haven                       |
-| [`eg_read_spss()`](https://username.github.io/egfiles/reference/eg_read_file.md), [`eg_write_spss()`](https://username.github.io/egfiles/reference/eg_write_file.md)                                                                                | haven                       |
-| [`eg_read_rds()`](https://username.github.io/egfiles/reference/eg_read_file.md), [`eg_write_rds()`](https://username.github.io/egfiles/reference/eg_write_file.md)                                                                                  | (base R - no extra package) |
+| Function                                                                                                                                                                                                                                                              | Required Package            |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
+| [`eg_read_csv()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md), [`eg_write_csv()`](https://atorus-research.github.io/egnyte/reference/eg_write_file.md)                                                                                        | readr                       |
+| [`eg_read_delim()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md), [`eg_write_delim()`](https://atorus-research.github.io/egnyte/reference/eg_write_file.md)                                                                                    | readr                       |
+| [`eg_read_excel()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md)                                                                                                                                                                               | readxl                      |
+| [`eg_write_excel()`](https://atorus-research.github.io/egnyte/reference/eg_write_file.md)                                                                                                                                                                             | writexl                     |
+| [`eg_read_sas()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md), [`eg_read_xpt()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md), [`eg_write_xpt()`](https://atorus-research.github.io/egnyte/reference/eg_write_file.md) | haven                       |
+| [`eg_read_stata()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md), [`eg_write_stata()`](https://atorus-research.github.io/egnyte/reference/eg_write_file.md)                                                                                    | haven                       |
+| [`eg_read_spss()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md), [`eg_write_spss()`](https://atorus-research.github.io/egnyte/reference/eg_write_file.md)                                                                                      | haven                       |
+| [`eg_read_rds()`](https://atorus-research.github.io/egnyte/reference/eg_read_file.md), [`eg_write_rds()`](https://atorus-research.github.io/egnyte/reference/eg_write_file.md)                                                                                        | (base R - no extra package) |
 
 If you try to use a function without the required package installed,
-egfiles will prompt you to install it:
+egnyte will prompt you to install it:
 
     The readr package is required for this function.
     Would you like to install it? (yes/no)
@@ -275,7 +275,7 @@ suggestions:
 - Consider whether you really need the whole file, or if you can work
   with a sample
 - For very large datasets, you might want to use
-  [`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)
+  [`eg_read()`](https://atorus-research.github.io/egnyte/reference/eg_read.md)
   to download the file once, then work with it locally
 
 ### Passing Arguments Through
@@ -305,8 +305,8 @@ dat <- eg_read_sas(
 
 ### File Extensions Matter
 
-egfiles uses the file extension to determine the format when
-downloading. Make sure your files have the correct extension:
+egnyte uses the file extension to determine the format when downloading.
+Make sure your files have the correct extension:
 
 - `.csv` for CSV files
 - `.xlsx` or `.xls` for Excel files
@@ -320,7 +320,7 @@ downloading. Make sure your files have the correct extension:
 
 Here’s the difference between using the format-specific functions
 vs. the base
-[`eg_read()`](https://username.github.io/egfiles/reference/eg_read.md)/[`eg_write()`](https://username.github.io/egfiles/reference/eg_write.md):
+[`eg_read()`](https://atorus-research.github.io/egnyte/reference/eg_read.md)/[`eg_write()`](https://atorus-research.github.io/egnyte/reference/eg_write.md):
 
 **Using eg_read_csv() (recommended for data files):**
 
@@ -344,6 +344,6 @@ temporary files automatically.
 ## Next Steps
 
 - Learn about authentication options in
-  [`vignette("authorization")`](https://username.github.io/egfiles/articles/authorization.md)
+  [`vignette("authorization")`](https://atorus-research.github.io/egnyte/articles/authorization.md)
 - See raw file transfer in
-  [`vignette("file-transfer")`](https://username.github.io/egfiles/articles/file-transfer.md)
+  [`vignette("file-transfer")`](https://atorus-research.github.io/egnyte/articles/file-transfer.md)

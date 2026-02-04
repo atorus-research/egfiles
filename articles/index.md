@@ -2,12 +2,12 @@
 
 ### Getting Started
 
-- [Configuration](https://username.github.io/egfiles/articles/configuration.md):
-- [Authorization](https://username.github.io/egfiles/articles/authorization.md):
+- [Configuration](https://atorus-research.github.io/egnyte/articles/configuration.md):
+- [Authorization](https://atorus-research.github.io/egnyte/articles/authorization.md):
 
 ### Working with Files
 
 - [File
-  Transfer](https://username.github.io/egfiles/articles/file-transfer.md):
+  Transfer](https://atorus-research.github.io/egnyte/articles/file-transfer.md):
 - [Reading and Writing Data
-  Files](https://username.github.io/egfiles/articles/reading-writing.md):
+  Files](https://atorus-research.github.io/egnyte/articles/reading-writing.md):

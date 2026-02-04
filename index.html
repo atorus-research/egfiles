@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Read and Write Files from Egnyte • egfiles</title>
+<title>Read and Write Files from Egnyte • egnyte</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="index.html">egfiles</a>
+    <a class="navbar-brand me-2" href="index.html">egnyte</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
@@ -50,7 +50,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/username/egfiles/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/atorus-research/egnyte/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -59,30 +59,30 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="egfiles">egfiles<a class="anchor" aria-label="anchor" href="#egfiles"></a>
+<div class="page-header"><h1 id="egnyte">egnyte<a class="anchor" aria-label="anchor" href="#egnyte"></a>
 </h1></div>
 <!-- badges: start -->
 
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><strong>egfiles</strong> provides an interface for reading and writing files directly to and from <a href="https://www.egnyte.com/" class="external-link">Egnyte</a> cloud storage. If you work in an environment where Egnyte is your file storage solution, this package lets you interact with those files programmatically from R without manually downloading and uploading through the web interface.</p>
-<p>The package supports multiple authentication methods (API keys and OAuth 2.0) and handles a variety of file formats commonly used in data analysis. Under the hood, egfiles leverages the excellent <a href="https://readr.tidyverse.org/" class="external-link">readr</a>, <a href="https://readxl.tidyverse.org/" class="external-link">readxl</a>, and <a href="https://haven.tidyverse.org/" class="external-link">haven</a> packages for file parsing, so if you’re familiar with those packages, the interfaces here should feel natural.</p>
+<p><strong>egnyte</strong> provides an interface for reading and writing files directly to and from <a href="https://www.egnyte.com/" class="external-link">Egnyte</a> cloud storage. If you work in an environment where Egnyte is your file storage solution, this package lets you interact with those files programmatically from R without manually downloading and uploading through the web interface.</p>
+<p>The package supports multiple authentication methods (API keys and OAuth 2.0) and handles a variety of file formats commonly used in data analysis. Under the hood, egnyte leverages the excellent <a href="https://readr.tidyverse.org/" class="external-link">readr</a>, <a href="https://readxl.tidyverse.org/" class="external-link">readxl</a>, and <a href="https://haven.tidyverse.org/" class="external-link">haven</a> packages for file parsing, so if you’re familiar with those packages, the interfaces here should feel natural.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install egfiles from GitHub:</p>
+<p>You can install egnyte from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"username/egfiles"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"atorus-research/egnyte"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
 <p>Before you can interact with Egnyte, you need to authenticate. The simplest approach is using an API key:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/username/egfiles" class="external-link">egfiles</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/atorus-research/egnyte" class="external-link">egnyte</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/eg_auth.html">eg_auth</a></span><span class="op">(</span></span>
 <span>  domain <span class="op">=</span> <span class="st">"your-company"</span>,</span>
@@ -100,7 +100,7 @@
 <div class="section level2">
 <h2 id="supported-file-formats">Supported File Formats<a class="anchor" aria-label="anchor" href="#supported-file-formats"></a>
 </h2>
-<p>egfiles provides format-specific functions for common data file types. These functions use <a href="https://readr.tidyverse.org/" class="external-link">readr</a>, <a href="https://readxl.tidyverse.org/" class="external-link">readxl</a>, <a href="https://docs.ropensci.org/writexl/" class="external-link">writexl</a>, and <a href="https://haven.tidyverse.org/" class="external-link">haven</a> under the hood, so all arguments you’re familiar with from those packages are available here.</p>
+<p>egnyte provides format-specific functions for common data file types. These functions use <a href="https://readr.tidyverse.org/" class="external-link">readr</a>, <a href="https://readxl.tidyverse.org/" class="external-link">readxl</a>, <a href="https://docs.ropensci.org/writexl/" class="external-link">writexl</a>, and <a href="https://haven.tidyverse.org/" class="external-link">haven</a> under the hood, so all arguments you’re familiar with from those packages are available here.</p>
 <table class="table">
 <thead><tr class="header">
 <th>Format</th>
@@ -164,7 +164,7 @@
 <div class="section level2">
 <h2 id="authentication-methods">Authentication Methods<a class="anchor" aria-label="anchor" href="#authentication-methods"></a>
 </h2>
-<p>egfiles supports three authentication approaches:</p>
+<p>egnyte supports three authentication approaches:</p>
 <ul>
 <li>
 <strong>API Key</strong>: Simplest option, good for personal use and scripting</li>
@@ -192,14 +192,14 @@
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
-<p>Please note that the egfiles project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>Please note that the egnyte project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/username/egfiles/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/username/egfiles/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/atorus-research/egnyte/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/atorus-research/egnyte/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -215,7 +215,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing egfiles</a></li>
+<li><a href="authors.html#citation">Citing egnyte</a></li>
 </ul>
 </div>
 

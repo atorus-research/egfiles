@@ -22,12 +22,12 @@ authorization.
 
 If the refresh token is also expired or revoked (e.g., user changed
 password), you will need to run
-[`eg_oauth_authorize()`](https://username.github.io/egfiles/reference/eg_oauth_authorize.md)
+[`eg_oauth_authorize()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_authorize.md)
 again.
 
 ## See also
 
-[`eg_oauth_authorize()`](https://username.github.io/egfiles/reference/eg_oauth_authorize.md)
+[`eg_oauth_authorize()`](https://atorus-research.github.io/egnyte/reference/eg_oauth_authorize.md)
 for the initial authorization.
 
 ## Examples
