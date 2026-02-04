@@ -2,18 +2,18 @@
 
 test_that("check_installed errors when package missing", {
   expect_error(
-    egfiles:::check_installed("nonexistent_fake_package_12345"),
+    egnyte:::check_installed("nonexistent_fake_package_12345"),
     "nonexistent_fake_package_12345.*required"
   )
 })
 
 test_that("check_installed succeeds for installed packages", {
-  expect_no_error(egfiles:::check_installed("testthat"))
+  expect_no_error(egnyte:::check_installed("testthat"))
 })
 
 test_that("check_installed provides installation hint", {
   expect_error(
-    egfiles:::check_installed("fakepkg123"),
+    egnyte:::check_installed("fakepkg123"),
     "install.packages"
   )
 })

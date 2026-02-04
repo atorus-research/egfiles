@@ -1,4 +1,4 @@
 library(testthat)
-library(egfiles)
+library(egnyte)
 
-test_check("egfiles")
+test_check("egnyte")

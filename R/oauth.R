@@ -52,7 +52,7 @@ eg_oauth_app <- function(domain,
     redirect_uri = redirect_uri
   )
 
-  options(egfiles.oauth_app = app)
+  options(egnyte.oauth_app = app)
 
   cli::cli_alert_success(
     "OAuth app configured for domain: {.val {domain}}"
@@ -105,7 +105,7 @@ eg_oauth_app <- function(domain,
 #' @seealso [eg_oauth_app()] to configure the OAuth application first.
 #' @export
 eg_oauth_authorize <- function(scope = "Egnyte.filesystem") {
-  app <- getOption("egfiles.oauth_app")
+  app <- getOption("egnyte.oauth_app")
   if (is.null(app)) {
     cli::cli_abort(c(
       "OAuth app not configured.",
@@ -154,15 +154,15 @@ eg_oauth_authorize <- function(scope = "Egnyte.filesystem") {
   tokens <- oauth_exchange_code(app, code)
 
   options(
-    egfiles.domain = app$domain,
-    egfiles.api_key = tokens$access_token,
-    egfiles.refresh_token = tokens$refresh_token,
-    egfiles.token_expires = Sys.time() + tokens$expires_in
+    egnyte.domain = app$domain,
+    egnyte.api_key = tokens$access_token,
+    egnyte.refresh_token = tokens$refresh_token,
+    egnyte.token_expires = Sys.time() + tokens$expires_in
   )
 
   cli::cli_alert_success("OAuth authorization complete!")
   cli::cli_alert_info(
-    "Access token expires: {.val {format(getOption('egfiles.token_expires'))}}"
+    "Access token expires: {.val {format(getOption('egnyte.token_expires'))}}"
   )
 
   invisible(tokens)
@@ -215,7 +215,7 @@ eg_oauth_authorize <- function(scope = "Egnyte.filesystem") {
 #' @seealso [eg_oauth_app()] to configure the OAuth application first.
 #' @export
 eg_oauth_password <- function(username = NULL, password = NULL) {
-  app <- getOption("egfiles.oauth_app")
+  app <- getOption("egnyte.oauth_app")
   if (is.null(app)) {
     cli::cli_abort(c(
       "OAuth app not configured.",
@@ -284,14 +284,14 @@ if (is.null(username)) {
   tokens <- httr2::resp_body_json(resp)
 
   options(
-    egfiles.domain = app$domain,
-    egfiles.api_key = tokens$access_token,
-    egfiles.token_expires = Sys.time() + tokens$expires_in
+    egnyte.domain = app$domain,
+    egnyte.api_key = tokens$access_token,
+    egnyte.token_expires = Sys.time() + tokens$expires_in
   )
 
   cli::cli_alert_success("Authentication successful!")
   cli::cli_alert_info(
-    "Access token expires: {.val {format(getOption('egfiles.token_expires'))}}"
+    "Access token expires: {.val {format(getOption('egnyte.token_expires'))}}"
   )
 
   invisible(tokens)
@@ -322,8 +322,8 @@ if (is.null(username)) {
 #' @seealso [eg_oauth_authorize()] for the initial authorization.
 #' @export
 eg_oauth_refresh <- function() {
-  app <- getOption("egfiles.oauth_app")
-  refresh_token <- getOption("egfiles.refresh_token")
+  app <- getOption("egnyte.oauth_app")
+  refresh_token <- getOption("egnyte.refresh_token")
 
   if (is.null(app)) {
     cli::cli_abort(c(
@@ -362,14 +362,14 @@ eg_oauth_refresh <- function() {
   tokens <- httr2::resp_body_json(resp)
 
   options(
-    egfiles.api_key = tokens$access_token,
-    egfiles.refresh_token = tokens$refresh_token %||% refresh_token,
-    egfiles.token_expires = Sys.time() + tokens$expires_in
+    egnyte.api_key = tokens$access_token,
+    egnyte.refresh_token = tokens$refresh_token %||% refresh_token,
+    egnyte.token_expires = Sys.time() + tokens$expires_in
   )
 
   cli::cli_alert_success("Access token refreshed!")
   cli::cli_alert_info(
-    "New token expires: {.val {format(getOption('egfiles.token_expires'))}}"
+    "New token expires: {.val {format(getOption('egnyte.token_expires'))}}"
   )
 
   invisible(tokens)

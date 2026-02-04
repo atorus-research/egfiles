@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Before you can use egfiles to interact with Egnyte, you need to set up your credentials. This vignette walks through how to get an API key and configure it for use with egfiles. If you're looking to understand the different authentication methods available, check out `vignette("authorization")` after you've finished here.
+Before you can use egnyte to interact with Egnyte, you need to set up your credentials. This vignette walks through how to get an API key and configure it for use with egnyte. If you're looking to understand the different authentication methods available, check out `vignette("authorization")` after you've finished here.
 
 ## Getting an API Key
 
@@ -27,7 +27,7 @@ If you have admin access to your Egnyte account, you can generate an API key dir
 1. Log in to your Egnyte account
 2. Navigate to **Settings** > **Security & Authentication** > **API Keys**
 3. Click **Create New Key**
-4. Give the key a descriptive name (e.g., "R egfiles access")
+4. Give the key a descriptive name (e.g., "R egnyte access")
 5. Copy the generated key - you won't be able to see it again
 
 ### If You're Not an Admin
@@ -40,10 +40,10 @@ Alternatively, you can use OAuth authentication, which doesn't require admin inv
 
 ## Setting Up Your Credentials
 
-Once you have your API key, you can configure egfiles using the `eg_auth()` function:
+Once you have your API key, you can configure egnyte using the `eg_auth()` function:
 
 ```{r}
-library(egfiles)
+library(egnyte)
 
 eg_auth(
   domain = "your-company",
@@ -57,7 +57,7 @@ After calling `eg_auth()`, you're ready to use the file reading and writing func
 
 ## Using Environment Variables
 
-Hardcoding credentials in your scripts is generally a bad idea. Anyone who sees your code also sees your API key. Instead, egfiles supports reading credentials from environment variables.
+Hardcoding credentials in your scripts is generally a bad idea. Anyone who sees your code also sees your API key. Instead, egnyte supports reading credentials from environment variables.
 
 Set these environment variables on your system:
 - `EGNYTE_DOMAIN`: Your Egnyte domain
@@ -69,7 +69,7 @@ Then you can call `eg_auth()` without any arguments:
 eg_auth()
 ```
 
-egfiles will automatically pick up the values from your environment.
+egnyte will automatically pick up the values from your environment.
 
 ### Setting Environment Variables
 
