@@ -1,9 +1,10 @@
-Package version 0.1.1
+Package version 0.1.2
 
 Initial Release resubmission with the following comments resolved:
 
 Possibly misspelled words in DESCRIPTION:
   Egnyte (2:34, 10:62, 11:23)
+  OAuth (12:31)
 
 Please single quote software names in both Title and Description fields
 of the DESCRIPTION file.
