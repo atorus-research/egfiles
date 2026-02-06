@@ -63,13 +63,7 @@ Set these environment variables on your system:
 - `EGNYTE_DOMAIN`: Your Egnyte domain
 - `EGNYTE_API_KEY`: Your API key
 
-Then you can call `eg_auth()` without any arguments:
-
-```{r}
-eg_auth()
-```
-
-egnyte will automatically pick up the values from your environment.
+With these environment variables set, you don't need to call `eg_auth()` at all. The package will automatically pick up the values from your environment when you use functions like `eg_read()` or `eg_write()`.
 
 ### Setting Environment Variables
 

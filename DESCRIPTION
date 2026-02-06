@@ -1,17 +1,20 @@
 Package: egnyte
-Title: Read and Write Files from Egnyte
-Version: 0.1.0
+Title: Read and Write Files from 'Egnyte'
+Version: 0.1.2
 Authors@R:
     person(given = "Mike",
            family = "Stackhouse",
            role = c("aut", "cre"),
            email = "mike.stackhouse@atorusresearch.com",
            comment = c(ORCID = "0000-0001-6030-723X"))
-Description: Provides functions to read and write files from Egnyte cloud
-    storage using the Egnyte API. Supports both API key and OAuth 2.0
-    authentication for file transfer operations.
+Description: Provides functions to read and write files from 'Egnyte' cloud
+    storage using the 'Egnyte' API <https://developers.egnyte.com/docs>.
+    Supports both API key and 'OAuth' 2.0 authentication for file transfer
+    operations.
+Depends:
+    R (>= 4.1.0)
 License: Apache License 2.0 | file LICENSE
-URL: https://github.com/atorus-research/egnyte
+URL: https://atorus-research.github.io/egnyte/
 BugReports: https://github.com/atorus-research/egnyte/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
