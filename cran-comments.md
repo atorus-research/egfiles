@@ -1,12 +1,16 @@
-Package version 0.1.0
+Package version 0.1.1
 
-Initial Release
+Initial Release resubmission with the following comments resolved:
+
+Possibly misspelled words in DESCRIPTION:
+  Egnyte (2:34, 10:62, 11:23)
+
+Please single quote software names in both Title and Description fields
+of the DESCRIPTION file.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 note
-
-* This is a new release.
+0 errors | 0 warnings | 0 notes
 
 ## Test environments
 
